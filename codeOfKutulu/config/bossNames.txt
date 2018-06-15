@@ -1,0 +1,7 @@
+Legend: Legend
+Gold: Jake Boss
+Silver: Lara Croft
+Bronze: Indiana Jones
+Wood3: Dora the explorer
+Wood2: Leeroy Jenkins
+Wood1: Davy Jones
