@@ -1,0 +1,290 @@
+
+<div class="statement-body">
+	<div leaguef="1" leaguet="4" style="color: #7cc576;background-color: rgba(124, 197, 118,.1);padding: 20px;margin-right: 15px;margin-left: 15px;margin-bottom: 10px;text-align: left;">
+				<div style="text-align: center; margin-bottom: 6px">
+					<img src="//cdn.codingame.com/smash-the-code/statement/league_wood_04.png">
+				</div>
+				<p style="text-align: center; font-weight: 700; margin-bottom: 6px;">
+					Summary of the new rules:
+				</p>
+				<span league="1" class="statement-league-alert-content">
+					Staying near an explorer slow down the sanity decay per turn for both.<br/>
+					Shelters can now heal you by staying on it.
+				</span>
+				<span league="2" class="statement-league-alert-content">
+					You can use the Light to repulse the minions for a few turns.<br/>
+					You can also Plan your exploration to heal yourself and the explorers around
+				</span>
+				<span league="3" class="statement-league-alert-content">
+					Slashers can now appear to finish you off.<br/>
+					You can yell at an other explorator.
+				</span>
+				<span league="4" class="statement-league-alert-content">
+					New maps for more challenge !
+				</span>
+		</div>
+	<!-- GOAL -->
+	<div class="statement-section statement-goal">
+		<h2>
+			<span class="icon icon-goal">&nbsp;</span> <span>The Plot</span>
+		</h2>
+		<!--  Story -->
+		<div class="statement-story">
+			<h2>Ph'nglui mglw'nafh Cthulhu R'lyeh wgah'nagl fhtagn</h2>
+			<div class="text">
+				<i>That is not dead wich can eternal lie. In strange eons even death may die</i><br />
+				You and your team of explorers have discovered the crypt of Kutulu.
+				It was the worst idea you have ever had since he wasn't ready to be
+				awaken and wants you dead. But the tomb is a real labyrinth and you can't
+				remember where was the exit… If it still has one !<br/>
+				Oh...and it seems that Kutulu wasn't alone, he is now sanding the Deep Ones after you.<br />
+				Try to be last man standing of your crew but remember that alone you will not last longer...
+			</div>
+		</div>
+		<!-- Rules -->
+		<div class="statement-section statement-rules">
+			<h2><span class="icon icon-rules">&nbsp;</span> <span>Rules</span></h2>
+			<div class="statement-rules-content">
+				<p>
+					<i>All distances are by default <a href="https://en.wikipedia.org/wiki/Taxicab_geometry">Manhattan distances</a> if not specified.</i>
+				</p>
+
+				<p>
+					The game is played on a map with <var>width</var> cells wide and <var>height</var> cells high with 2 to 4 players.
+					The map is picked amongst a set of already generated maps.<br />
+					The <const>{0,0}</const> coordinate is the top left corner.
+				</p>
+
+				<b>Units</b>
+				<p>
+					Each player is an explorer lost in the map. Its stats are shown next to your avatar. Your must be the last explorer to reach <const>0</const> sanity.
+				</p>
+				<p>
+					Wanderer spawns are placed on the map at fixed position. They summon <const>wanderers</const>, a specific type of minions. (detailed below)<br/>
+					Kutulu regularly invokes wanderers on the more isolated spawns. Meaning the spawns which have the maximum distance to their nearest explorer spawns a wanderer.<br/>
+					You have a few turns to get ready before a wanderer effectively spawns and they have a life time.<br/>
+					When they reach a cell next to you or your cell, they will damage you for a fixed amount of sanity and then disappear.
+				</p>
+
+				<p leaguef="3">
+					When below a certain amount of sanity, a <strong>slasher will appear at your position.</strong> They have a slighty different behaviour than wanderers detailed below.<br/>
+					As the wanderer they have a spawning delay, a fixed amount of damage, but they will never be removed of the map.
+				</p>
+
+				<p leaguef="1">
+					When an other exporer is near you, even if there is a wall in between, <strong>you reassure each other and thus lose less sanity.</strong><br/>
+					You lose <const>3</const> when alone, and only <const>1</const> nearby an explorer.
+				</br/>
+				</p>
+
+
+				<b leaguef="1">Effects</b>
+				<p leaguef="1">
+					Shelters are placed on the map at fixed positions. When you stay on top of it the shelter heals you for <const>6</const> sanity each turn.<br/>
+					It also lose <const>1</const> energy each turn until 0 for each player on it. When it runs out of energy, it can no longer heal anyone before being fully refilled.
+					<strong>STILL NOT YET SURE ABOUT WHEN IT IS REFILLED</strong>
+				</br/>
+				</p>
+				<p leaguef="2">
+					Plan ....
+				</p>
+
+				<p leaguef="2">
+					Light ....
+				</p>
+
+				<p leaguef="3">
+					You can yell at an other explorator a loud "Behind you!" to scare him enough to lock him in place for <const>2</const> turns. He won't be able to do any action for this periode of time.<br/>
+					But remember it only works <const>1</const> time per player. You know, fool me once shame on you, fool me twice shame on me.
+				</p>
+
+				<p>
+					<b>Actions</b><br />
+					Every turn your explorer must perform one of these actions.
+				</p>
+				<ul>
+					<li>
+						<action>WAIT</action> : you'll stay in place.
+					</li>
+					<li>
+						<action>LEFT</action><action>RIGHT</action><action>UP</action><action>DOWN</action> Your explorer will move on cell in the following direction.
+					</li>
+					<li leaguef="2">
+						<action>LIGHT</action> : you will light a torch for a few turns
+					</li>
+					<li leaguef="2">
+						<action>PLAN</action> : you will try to put the things together and recover sanity for you and every player in range.
+					</li>
+					<li leaguef="3">
+						<action>YELL</action> : you'll trick an other explorer and he will perform a WAIT for the current turn.
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!--  Minions -->
+		<div class="statement-section">
+			<h2>
+				<span class="icon icon-expertrules">&nbsp;</span> <span>Minions</span>
+			</h2>
+			<div class="statement-content">
+				<p>
+					<b>Wanderers</b><br />
+					They have a relatively simple behaviour :
+					<ol>
+						<li>
+							Spawn in <const>3</const> turns.
+						</li>
+						<li>
+							Chose a target which is the nearest player.
+						</li>
+						<li>
+							Move one cell closer to the player.
+						</li>
+						<li>
+							Repeat from step 2 each turn.
+						</li>
+					</ol>
+					When close enough to a player, precisely in a radius of 1 (the four cells around the minion and the cell of the minion), all players in this radius are frightenned, and then the minion disapears.<br/>
+					In case of equality in distance at step 2, the wanderers keeps the last target.
+				</p>
+			</div>
+
+			<div leaguef="3">
+					<b>Slashers</b><br />
+					They are more difficult to understand, but they are also a state machine minion :
+					<ol>
+						<li>
+							Spawn in <const>6</const> turns.
+						</li>
+						<li>
+							Behave like a minion until they are in line of sight of a player (meaning a player is in one of the four direction with no wall in between). It triggers the rush preparation phase
+						</li>
+						<li>
+							When in preparation the slasher stays in one place for <const>2</const> and continue to scan the line of sight and change the target if the previous is not in line anymore or an explorer is nearest than the previous target.<br />
+							After the 2 turns delay, it goes in rush mode.
+						</li>
+						<li>
+							Instantly rush to the target if the target is still in line, or rush to the last seen position of the target. Frightens the players on the cell on arrival and then go on stun mode.
+						</li>
+						<li>
+							When stunned, the slasher is a useless piece of tissue and bones for <const>6</const> turns. After that, repeat from step 2 until the end of the game.
+						</li>
+					</ol>
+					They are created by the fear of a player and thus spawn on a player when he goes below <const>250</const> sanity for the first time. That means, only 4 slashers can be on the map at the same time<br/>
+					They never die.<br/>
+					In case of equality in distance the last target is prefered.
+			</div>
+
+		</div>
+		<!-- Victory  -->
+		<div class="statement-victory-conditions">
+			<div class="icon victory">&nbsp;</div>
+			<div class="blk">
+				<div class="title">
+					Victory conditions
+				</div>
+				<div class="text">
+					Be the last explorer to fall in the madness.
+				</div>
+			</div>
+		</div>
+
+		<div class="statement-lose-conditions">
+			<div class="icon lose">&nbsp;</div>
+			<div class="blk">
+				<div class="title">
+					Lose conditions
+				</div>
+				<div class="text">
+					<ul>
+						<li>
+							Reach 0 sanity before the other players
+						</li>
+						<li>
+							Output a wrong command (if well written but impossible, your explorer will just WAIT)
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		</div>
+
+		<div class="statement-section statement-protocol">
+			<h1><span class="icon icon-protocol">&nbsp;</span> <span>Game Input</span></h1>
+			<!-- Protocol block -->
+
+			<div class="blk">
+			<div class="title">Initialization input</div>
+
+			<div class="text">
+				<span class="statement-lineno">Line 1</span>: <var>width</var> <var>height</var>: Two integers for the width and the height of the map<br>
+				<span class="statement-lineno">Next <var>height</var> lines</span> : A string representing each row of the map starting from the top. Each character encodes a cell as follows<br>
+				<ul>
+					<li><const>#</const>: wall <br /></li>
+					<li><const>w</const>: spawn for wanderers<br /></li>
+					<li><const>U</const>: shelters<br /></li>
+					<li><const>.</const>: empty cell<br /></li>
+				</ul>
+			</div>
+			<!-- Protocol block -->
+
+			<div class="blk">
+				<div class="title">Input for one game turn</div>
+
+				<div class="text">
+					<span class="statement-lineno">1 line: <</span>An integer <var>playersCount</var> for the number of players still alive.<br>
+					<span class="statement-lineno">Next <var>playersCount</var>  lines:</span> Each player represented as follows:<br>
+					5 integers, <br /><var>sanity</var> the sanity, <br />
+					<var>x</var> &amp; <var>y</var> the position of the player, <br />
+					<var>param1</var> &amp; <var>param2</var> not relevant for this league
+				</div>
+				<br/>
+				<div class="text">
+					<span class="statement-lineno">1 line: <</span>An integer <var>minionsCount</var> for the number of minions on the field and spawning.<br>
+					<span class="statement-lineno">Next <var>minionsCount</var>  lines:</span> Each minion represented as follows:<br>
+					7 integers,<br />
+					<var>index</var> the unique identifier of the minion,<br />
+					<var>mtype</var>the type of the minion,<br />
+					<var>state</var> the state of the minion,<br />
+					<var>life</var> the time before spawn while spawning or the remaining turn alive of the minion,<br />
+					<var>x</var> &amp; <var>y</var> the position of the minion,<br />
+					<var>target</var> &amp; the current target of the minion <br />
+				</div>
+				<br />
+			</div>
+			<!-- Protocol block -->
+
+			<div class="blk">
+			<div class="title">Output for one game turn</div>
+
+			<div class="text">
+				<span class="statement-lineno">One line</span>: the action of your explorer than can be on of those :
+				<ul>
+					<li><action>WAIT</action></li>
+					<li><action>UP</action> | <action>RIGHT</action> | <action>DOWN</action> | <action>LEFT</action>: one of these four direction</li>
+					<li leaguef="2"><action>PLAN</action></li>
+					<li leaguef="2"><action>LIGHT</action></li>
+					<li leaguef="3"><action>YELL</action></li>
+				</ul>
+				<p>
+					You can aswell display a message by adding a few characters after your command this way <action>LIGHT Feast is over,and the lamps expire</action><br/>
+				</br/>
+				</p>
+			</div>
+			<!-- Protocol block -->
+
+			<div class="blk">
+			<div class="title">Constraints</div>
+
+			<div class="text">
+				<const>10</const> ≤ <var>width</var> ≤ <const>24</const><br>
+				<const>10</const> ≤ <var>height</var> ≤ <const>20</const><br>
+				<const>0</const> ≤ <var>spawns</var> ≤ <const>8</const><br>
+				<span leaguef="1"><const>0</const> ≤ <var>shelters</var> ≤ <const>8</const><br></span>
+			Response time first turn ≤ 1000ms<br>
+			Response time per turn ≤ 75ms</div>
+			</div>
+	</div>
+
+</div>

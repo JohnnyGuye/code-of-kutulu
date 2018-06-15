@@ -1,0 +1,568 @@
+<div class="statement-body">
+ <div style="color: #7cc576;background-color: rgba(124, 197, 118,.1);padding: 20px;margin-right: 15px;margin-left: 15px;margin-bottom: 10px;text-align: left;">
+  <div style="text-align: center; margin-bottom: 6px">
+   <img src="//cdn.codingame.com/smash-the-code/statement/league_wood_04.png">
+   </img>
+  </div>
+  <p style="text-align: center; font-weight: 700; margin-bottom: 6px;">
+   Summary of the new rules:
+  </p>
+  <span class="statement-league-alert-content">
+   You can use the Light to ward off minions for a few turns.
+   <br/>
+   You can also come up with a Plan to comfort yourself and the explorers around you.
+  </span>
+ </div>
+ <div class="statement-section statement-goal">
+  <h2>
+   <span class="icon icon-goal">
+   </span>
+   <span>
+    The Plot
+   </span>
+  </h2>
+  <!--  Story -->
+  <div class="statement-story" style="min-height: 0">
+   <h2>
+    Ph'nglui mglw'nafh Cthulhu R'lyeh wgah'nagl fhtagn
+   </h2>
+   <div class="text">
+    <blockquote style="font-style: italic; font-family: fantasy">
+     That is not dead which can eternal lie. In strange aeons even death may die
+    </blockquote>
+    <br/>
+    You and your team of explorers have discovered the crypt of Kutulu.
+					It was the worst idea you have ever had since he wasn't ready to be
+					awakened and wants you dead. But the tomb is a real labyrinth and you can't
+					remember where the exit was... If it still has one!
+    <br/>
+    Oh... and it seems that Kutulu wasn't alone, he is now sending the Deep Ones after you.
+    <br/>
+    <br/>
+    Try to be last man standing of your crew but remember that alone you will not last longer...
+   </div>
+  </div>
+ </div>
+ <!-- Rules -->
+ <div class="statement-section statement-rules">
+  <h2>
+   <span class="icon icon-rules">
+   </span>
+   <span>
+    Rules
+   </span>
+  </h2>
+  <div class="statement-rules-content">
+   <p>
+    <i>
+     All distances are by default
+     <a href="https://en.wikipedia.org/wiki/Taxicab_geometry">
+      Manhattan distances
+     </a>
+     if not specified.
+    </i>
+   </p>
+   <p>
+    The game is played on a map with
+    <var>
+     width
+    </var>
+    cells wide and
+    <var>
+     height
+    </var>
+    cells high with 4 players.
+						The map is picked amongst a set of already generated maps.
+    <br/>
+    The
+    <const>
+     {0,0}
+    </const>
+    coordinate is the top left corner.
+   </p>
+   <b>
+    Units
+   </b>
+   <p>
+    Each player is an explorer lost in the map. The explorer's stats are shown next to your avatar. Each explorer starts with a sanity of
+    <const>
+     250
+    </const>
+    . You must be the last explorer to reach
+    <const>
+     0
+    </const>
+    sanity.
+    <br/>
+    Passively, explorers lose
+    <const>
+     <span>
+      3
+     </span>
+    </const>
+    sanity each turn due to the fear caused by the environment.
+    <br/>
+    <span>
+     When another explorer is up to
+     <const>
+      2
+     </const>
+     cells away from you, even if there is a wall in between,
+     <strong>
+      you reassure each other and thus lose
+      <span>
+       only
+       <const>
+        1
+       </const>
+      </span>
+      sanity instead
+     </strong>
+     .
+    </span>
+   </p>
+   <p>
+    Wanderer spawns are placed on the map at fixed positions. They summon
+    <const>
+     wanderers
+    </const>
+    , a type of minion (detailed below).
+    <br/>
+    Kutulu regularly invokes wanderers to strike fear into the hearts of those who would desecrate his tomb. After a few turns, and regularly thereafter, a wanderer will be spawned at the spawnpoint that is furthest from any player (ignoring walls).
+    <br/>
+    You have a few turns to get ready before wanderers start spawning.
+    <br/>
+    When a wanderer reaches your cell, it
+    <i>
+     spooks
+    </i>
+    you and then disappears. You will lose
+    <const>
+     20
+    </const>
+    sanity.
+   </p>
+   <b>
+    Effects
+   </b>
+   <p>
+    You can
+    <action>
+     PLAN
+    </action>
+    to gain sanity
+    <const>
+     2
+    </const>
+    times in the game. The plan is an effect with a duration of
+    <const>
+     5
+    </const>
+    turns and a range of
+    <const>
+     2
+    </const>
+    (does not penetrate walls), that will add
+    <const>
+     3
+    </const>
+    sanity to each player in range. Additionally your explorer will gain
+    <const>
+     3
+    </const>
+    more sanity for each other player reassured. The effect moves with your explorer.
+   </p>
+   <p>
+    The
+    <action>
+     LIGHT
+    </action>
+    wards off wanderers by adding
+    <const>
+     4
+    </const>
+    to the distance of each cell used by wanderers to calculate the closest explorer. It has a duration of
+    <const>
+     3
+    </const>
+    turns, a range of
+    <const>
+     5
+    </const>
+    (does not penetrate walls), and can be used
+    <const>
+     3
+    </const>
+    times in the game.
+   </p>
+   <p>
+    A player can't have two active effects at the same time.
+   </p>
+   <p>
+    <b>
+     Actions
+    </b>
+    <br/>
+    Every turn your explorer must perform one of these actions.
+   </p>
+   <ul style="padding-bottom: 0">
+    <li>
+     <action>
+      WAIT
+     </action>
+     : you'll stay in place.
+     <span style="display: none;">
+      You coward.
+     </span>
+    </li>
+    <li>
+     <action>
+      MOVE x y
+     </action>
+     : Your explorer will take a step closer to the cell at {x,y} (via the shortest path), or wait if that cell is unreachable.
+    </li>
+    <li>
+     <action>
+      LIGHT
+     </action>
+     : you will light a torch for a few turns.
+    </li>
+    <li>
+     <action>
+      PLAN
+     </action>
+     : your explorer will buckle down and come up with a plan; this will recover sanity for you and your colleagues.
+    </li>
+   </ul>
+  </div>
+ </div>
+ <!--	Minions -->
+ <div class="statement-section statement-protocol">
+  <h1>
+   <span class="icon icon-protocol">
+   </span>
+   <span>
+    Game Input
+   </span>
+  </h1>
+  <!-- Protocol block -->
+  <div class="blk">
+   <div class="title">
+    Initialization input
+   </div>
+   <div class="text">
+    <span class="statement-lineno">
+     Line 1
+    </span>
+    :
+    <var>
+     width
+    </var>
+    an integer for the width of the map
+    <br>
+     <span class="statement-lineno">
+      Line 2
+     </span>
+     :
+     <var>
+      height
+     </var>
+     an integer for the height of the map
+     <br>
+      <span class="statement-lineno">
+       Next
+       <var>
+        height
+       </var>
+       lines
+      </span>
+      : A string representing each row of the map starting from the top. Each character encodes a cell as follows
+      <br>
+       <ul style="padding-bottom: 0; padding-top: 0">
+        <li>
+         <const>
+          #
+         </const>
+         : wall
+         <br/>
+        </li>
+        <li>
+         <const>
+          w
+         </const>
+         : spawn for wanderers
+         <br/>
+        </li>
+        <li>
+         <const>
+          .
+         </const>
+         : empty cell
+         <br/>
+        </li>
+       </ul>
+       <br/>
+       <span>
+        <span class="statement-lineno">
+         One line:
+        </span>
+        4 integers to read. No signification yet.
+       </span>
+      </br>
+     </br>
+    </br>
+   </div>
+  </div>
+  <!-- Protocol block -->
+  <div class="blk">
+   <div class="title">
+    Input for one game turn
+   </div>
+   <div class="text">
+    <span class="statement-lineno">
+     First line:
+    </span>
+    An integer
+    <var>
+     entityCount
+    </var>
+    for the number of entities on the field (including spawning
+    <span>
+     minions and effects).
+    </span>
+    <br>
+     <span class="statement-lineno">
+      Next
+      <var>
+       entityCount
+      </var>
+      lines:
+     </span>
+     Each entity represented as follows:
+     <br>
+      <ul style="padding-bottom: 0; padding-top: 0">
+       <li>
+        String
+        <var>
+         entityType
+        </var>
+        the type of entity amongst those:
+        <const>
+         EXPLORER
+        </const>
+        |
+        <const>
+         WANDERER
+        </const>
+        <span>
+         |
+         <const>
+          EFFECT_PLAN
+         </const>
+         |
+         <const>
+          EFFECT_LIGHT
+         </const>
+        </span>
+       </li>
+       <li>
+        Integer
+        <var>
+         id
+        </var>
+        the unique identifier of a unit, -1 for an effect
+        <br/>
+       </li>
+       <li>
+        Integers
+        <var>
+         x
+        </var>
+        &amp;
+        <var>
+         y
+        </var>
+        the position of the entity.
+        <span>
+         For an effect, its origin.
+        </span>
+       </li>
+       <li>
+        Integer
+        <var>
+         param0
+        </var>
+        <ul class="ul2" style="padding-bottom: 0; padding-top: 0">
+         <li>
+          Explorer: sanity
+         </li>
+         <li>
+          Spawning minion: time before spawn
+         </li>
+         <li>
+          Wanderer: time before being recalled
+         </li>
+         <li>
+          Effect: time before fading out
+         </li>
+        </ul>
+       </li>
+       <li>
+        Integer
+        <var>
+         param1
+        </var>
+        :
+        <ul class="ul2" style="padding-bottom: 0; padding-top: 0">
+         <li>
+          Explorer: the amount of plans you can still have.
+         </li>
+         <li>
+          Minion: Current state amongst those -&gt;
+          <const>
+           SPAWN = 0
+          </const>
+          ,
+          <const>
+           WANDERING = 1
+          </const>
+         </li>
+         <li>
+          Effect: The
+          <var>
+           id
+          </var>
+          of the explorer that started the effect.
+         </li>
+        </ul>
+       </li>
+       <li>
+        Integer
+        <var>
+         param2
+        </var>
+        :
+        <ul class="ul2" style="padding-bottom: 0; padding-top: 0">
+         <li>
+          Explorer: the amount of lights you still have.
+         </li>
+         <li>
+          Minion:
+          <var>
+           id
+          </var>
+          of the explorer targeted by this minion. -1 if no target (occurs only on spawn)
+         </li>
+        </ul>
+       </li>
+      </ul>
+      <p>
+       Note: the explorer you control is the
+       <b>
+        first
+       </b>
+       given entity. The
+       <var>
+        id
+       </var>
+       may not be 0.
+      </p>
+     </br>
+    </br>
+   </div>
+  </div>
+  <!-- Protocol block -->
+  <div class="blk">
+   <div class="title">
+    Output for one game turn
+   </div>
+   <div class="text">
+    <span class="statement-lineno">
+     One line
+    </span>
+    : the action of your explorer which can be on of these:
+    <ul style="padding-bottom: 0; padding-top: 0">
+     <li>
+      <action>
+       WAIT
+      </action>
+     </li>
+     <li>
+      <action>
+       MOVE x y
+      </action>
+     </li>
+     <li>
+      <action>
+       PLAN
+      </action>
+     </li>
+     <li>
+      <action>
+       LIGHT
+      </action>
+     </li>
+    </ul>
+    <p>
+     You can also display a message by adding a few characters after your command, such as
+     <action>
+      WAIT Feast is over, and the lamps expire
+     </action>
+    </p>
+   </div>
+  </div>
+  <!-- Protocol block -->
+  <div class="blk">
+   <div class="title">
+    Constraints
+   </div>
+   <div class="text">
+    <const>
+     10
+    </const>
+    ≤
+    <var>
+     width
+    </var>
+    ≤
+    <const>
+     24
+    </const>
+    <br>
+     <const>
+      10
+     </const>
+     ≤
+     <var>
+      height
+     </var>
+     ≤
+     <const>
+      20
+     </const>
+     <br>
+      <const>
+       0
+      </const>
+      ≤
+      <var>
+       spawns
+      </var>
+      ≤
+      <const>
+       8
+      </const>
+      <br>
+       <br>
+        Response time first turn ≤ 1000ms
+        <br>
+         Response time per turn ≤ 50ms
+        </br>
+       </br>
+      </br>
+     </br>
+    </br>
+   </div>
+  </div>
+ </div>
+</div>

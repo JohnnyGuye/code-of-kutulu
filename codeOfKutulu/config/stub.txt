@@ -1,0 +1,22 @@
+read width:int
+read height:int
+loop height read line:string(25)
+read sanityLossLonely:int sanityLossGroup:int wandererSpawnTime:int wandererLifeTime:int
+gameloop
+read entityCount:int
+loop entityCount read entityType:word(20) id:int x:int y:int param0:int param1:int param2:int
+write WAIT
+
+STATEMENT
+Survive the wrath of Kutulu
+Coded fearlessly by JohnnyYuge & nmahoude (ok we might have been a bit scared by the old god...but don't say anything)
+
+INPUT
+entityCount: the first given entity corresponds to your explorer
+sanityLossLonely: how much sanity you lose every turn when alone, always 3 until wood 1
+sanityLossGroup: how much sanity you lose every turn when near another player, always 1 until wood 1
+wandererSpawnTime: how many turns the wanderer take to spawn, always 3 until wood 1
+wandererLifeTime: how many turns the wanderer is on map after spawning, always 40 until wood 1
+
+OUTPUT
+MOVE <x> <y> | WAIT 

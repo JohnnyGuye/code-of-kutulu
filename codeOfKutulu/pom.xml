@@ -1,0 +1,98 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.codingame.game</groupId>
+	<artifactId>codeOfKutulu</artifactId>
+	<version>1.0</version>
+
+	<properties>
+		<gamengine.version>2.2</gamengine.version>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
+
+	<developers>
+		<developer>
+			<id>johnnyYuge</id>
+			<name>johnnyYuge</name>
+		</developer>
+		<developer>
+			<id>nmahoude</id>
+			<name>Nicolas Mahoudeaux</name>
+		</developer>
+		<developer>
+			<id>unihedron</id>
+			<name>unihedron</name>
+		</developer>
+	</developers>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.codingame.gameengine</groupId>
+			<artifactId>core</artifactId>
+			<version>${gamengine.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.codingame.gameengine</groupId>
+			<artifactId>module-entities</artifactId>
+			<version>${gamengine.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.codingame.gameengine</groupId>
+			<artifactId>runner</artifactId>
+			<version>${gamengine.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>pl.pragmatists</groupId>
+			<artifactId>JUnitParams</artifactId>
+			<version>1.0.6</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<!-- copy boss sources to output directories 
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.5</version>
+				<executions>
+					<execution>
+						<id>copy-bosses</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<overwrite>true</overwrite>
+
+							<outputDirectory>config/</outputDirectory>
+							<resources>
+								<resource>
+									<directory>src/test/java/runner/bosses/</directory>
+									<filtering>false</filtering>
+									<includes>
+										<include>**/*.java</include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+	</build>-->
+</project>

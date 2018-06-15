@@ -1,0 +1,584 @@
+<div class="statement-body">
+ <div style="color: #7cc576;background-color: rgba(124, 197, 118,.1);padding: 20px;margin-right: 15px;margin-left: 15px;margin-bottom: 10px;text-align: left;">
+  <div style="text-align: center; margin-bottom: 6px">
+   <img src="//cdn.codingame.com/smash-the-code/statement/league_wood_04.png">
+   </img>
+  </div>
+  <p style="text-align: center; font-weight: 700; margin-bottom: 6px;">
+   Résumé des nouvelles règles
+  </p>
+  <span class="statement-league-alert-content">
+   Tu peux utiliser une torche pour éloigner les minions pour quelques tours.
+   <br/>
+   Tu peux aussi trouver un plan pour retrouver un bon état mental et rassérenner les explorateurs autour de toi.
+  </span>
+ </div>
+ <div class="statement-section statement-goal">
+  <h2>
+   <span class="icon icon-goal">
+   </span>
+   <span>
+    Le pitch
+   </span>
+  </h2>
+  <!--  Story -->
+  <div class="statement-story" style="min-height: 0">
+   <h2>
+    Ph'nglui mglw'nafh Cthulhu R'lyeh wgah'nagl fhtagn
+   </h2>
+   <div class="text">
+    <blockquote style="font-style: italic; font-family: fantasy">
+     That is not dead which can eternal lie. In strange aeons even death may die
+    </blockquote>
+    <br/>
+    Toi et ton équipe d'explorateurs avez découvert la crypte de Kutulu.
+    <br/>
+    C'est probablement la pire idée que vous ayez eue car ce dernier n'était pas près à être réveillé et veut vous tuer.
+					L'ennui, c'est que la tombe est un véritable labyrinthe dont vous n'arrivez plus à vous souvenir de la sortie... s'il en existe toujours une !
+    <br/>
+    Oh... et il semble que Kutulu n'était pas seul, il envoie les Profonds après vous.
+    <br/>
+    Ton but est d'être le dernier survivant de ton équipe, mais souviens toi que seul, tu ne feras pas long feu...
+   </div>
+  </div>
+ </div>
+ <!-- Rules -->
+ <div class="statement-section statement-rules">
+  <h2>
+   <span class="icon icon-rules">
+   </span>
+   <span>
+    Règles
+   </span>
+  </h2>
+  <div class="statement-rules-content">
+   <p>
+    <i>
+     Toutes les distances sont par défaut des
+     <a href="https://fr.wikipedia.org/wiki/Distance_de_Manhattan">
+      distances de Manhattan
+     </a>
+     si non précisé.
+    </i>
+   </p>
+   <p>
+    Le jeu se joue sur une carte de
+    <var>
+     width
+    </var>
+    cases de large et
+    <var>
+     height
+    </var>
+    cases de haut avec 4 joueurs.
+						La carte est prise parmi un ensemble défini de cartes.
+    <br/>
+    Le point
+    <const>
+     {0,0}
+    </const>
+    est le coin supérieur gauche.
+   </p>
+   <b>
+    Unités
+   </b>
+   <p>
+    Chaque joueur est un explorateur perdu sur la carte. Les stats des explorateurs sont indiquées à côté de leur avatar.
+            Chaque explorateur commence avec
+    <const>
+     250
+    </const>
+    de santé mentale. Tu dois être le dernier explorateur à atteindre
+    <const>
+     0
+    </const>
+    de santé.
+    <br/>
+    Passivement, les joueurs perdent
+    <const>
+     <span>
+      3
+     </span>
+    </const>
+    de santé chaque tour à cause de l'environnement hostile dans lequel ils sont plongés.
+    <br/>
+    <span>
+     Quand un autre explorateur est dans un rayon de
+     <const>
+      2
+     </const>
+     cases autour de toi, même s'il y a un mur,
+     <strong>
+      vous vous rassurez mutuellement et perdez
+      <span>
+       uniquement
+       <const>
+        1
+       </const>
+       de santé
+      </span>
+     </strong>
+     .
+    </span>
+   </p>
+   <p>
+    Des portails d'invocation sont positionnés sur certaines cases de la carte. Sur ces cases peuvent apparaître des
+    <const>
+     wanderers
+    </const>
+    , un type de
+    <b>
+     minion
+    </b>
+    (détaillé plus bas).
+    <br/>
+    Kutulu invoque régulièrement des wanderers pour ancrer la terreur au plus profond des sens de ceux qui osent fouler les dalles de sa crypte. Les portails sur lesquels il invoque ses minions sont le ou les portails les plus éloignés des joueurs.
+    <br/>
+    Tu as quelques tours avant que les minions ne commencent à apparaître...
+    <br/>
+    Quand un minion atteint ta case, il
+    <i>
+     épouvante
+    </i>
+    ton explorateur et disparait. L'explorateur perd
+    <const>
+     20
+    </const>
+    de santé mentale.
+   </p>
+   <b>
+    Effets
+   </b>
+   <p>
+    <action>
+     PLAN
+    </action>
+    Tu peux établir un plan pour gagner de la santé mentale
+    <const>
+     2
+    </const>
+    fois dans une partie.
+    <br/>
+    C'est un effet qui dure
+    <const>
+     5
+    </const>
+    tours sur une distance de
+    <const>
+     2
+    </const>
+    ne traversant pas les murs.
+    <br/>
+    Il rend
+    <const>
+     3
+    </const>
+    points de santé à chaque joueur dans la portée d'effet. Additionnellement, le lanceur regagne
+    <const>
+     3
+    </const>
+    de santé supplémentaire pour chaque autre joueur à portée. L'effet bouge avec ton explorateur.
+   </p>
+   <p>
+    <action>
+     LIGHT
+    </action>
+    L'effet dissuade les minions de marcher vers ton explorateur.
+    <br/>
+    Light ajoute
+    <const>
+     4
+    </const>
+    à la distance de chaque case touchée par l'effet pour calculer la distance entre un minion et sa proie (le minion verra les explorateurs dans l'effet plus loin qu'ils ne sont réellement).
+    <br/>
+    L'effet reste actif
+    <const>
+     3
+    </const>
+    tours, pour une portée de
+    <const>
+     5
+    </const>
+    ne traversant pas non plus les murs, et peut être utilisé jusqu'à
+    <const>
+     3
+    </const>
+    fois par partie.
+   </p>
+   <p>
+    Un joueur ne peux pas avoir deux effets actifs au même moment.
+   </p>
+   <p>
+    <b>
+     Actions
+    </b>
+    <br/>
+    Chaque tour un explorateur doit choisir une action parmis la liste ci-dessous :
+   </p>
+   <ul style="padding-bottom: 0">
+    <li>
+     <action>
+      WAIT
+     </action>
+     : ton explorateur ne bouge pas.
+     <span style="display: none;">
+      Poule mouillée.
+     </span>
+    </li>
+    <li>
+     <action>
+      MOVE x y
+     </action>
+     : Ton explorateur va bouger d'une case dans la direction du plus court chemin vers la case ciblée. Si la cible est inaccessible, l'explorateur ne bouge pas.
+    </li>
+    <li>
+     <action>
+      LIGHT
+     </action>
+     : ton explorateur allumera une torche qu'il gardera en main pendant ses déplacements.
+    </li>
+    <li>
+     <action>
+      PLAN
+     </action>
+     : ton explorateur va surpasser sa terreur et établir un plan ; récupérant un peu de santé mentale pour tout ceux qui entendent le plan.
+    </li>
+   </ul>
+  </div>
+ </div>
+ <!--	Minions -->
+ <div class="statement-section statement-protocol">
+  <h1>
+   <span class="icon icon-protocol">
+   </span>
+   <span>
+    Entrées
+   </span>
+  </h1>
+  <!-- Protocol block -->
+  <div class="blk">
+   <div class="title">
+    Entrée d'initialisation
+   </div>
+   <div class="text">
+    <span class="statement-lineno">
+     Ligne 1
+    </span>
+    :
+    <var>
+     width
+    </var>
+    pour la largeur de la carte
+    <br>
+     <span class="statement-lineno">
+      Ligne 2
+     </span>
+     :
+     <var>
+      height
+     </var>
+     pour la hauteur de la carte
+     <br>
+      <span class="statement-lineno">
+       <var>
+        height
+       </var>
+       lignes suivantes
+      </span>
+      : une chaine de caractères représentant chaque ligne de la carte en commençant par le haut. Chaque caractère représente une case de la carte tel que :
+      <br>
+       <ul style="padding-bottom: 0; padding-top: 0">
+        <li>
+         <const>
+          #
+         </const>
+         : mur
+         <br/>
+        </li>
+        <li>
+         <const>
+          w
+         </const>
+         : portail d'invocation
+         <br/>
+        </li>
+        <li>
+         <const>
+          .
+         </const>
+         : case vide
+         <br/>
+        </li>
+       </ul>
+       <br/>
+       <span>
+        <span class="statement-lineno">
+         Une ligne :
+        </span>
+        4 entiers à lire. Ils n'ont pour l'instant aucune signification.
+       </span>
+      </br>
+     </br>
+    </br>
+   </div>
+  </div>
+  <!-- Protocol block -->
+  <div class="blk">
+   <div class="title">
+    Entrée pour un tour de jeu
+   </div>
+   <div class="text">
+    <span class="statement-lineno">
+     Première ligne :
+    </span>
+    un entier
+    <var>
+     entityCount
+    </var>
+    pour le nombre d'entités présentes en jeu,
+    <span>
+     (explorateurs, minions et effets).
+    </span>
+    <br>
+     <span class="statement-lineno">
+      <var>
+       entityCount
+      </var>
+      lignes suivantes :
+     </span>
+     chacune des entitées réprésentées telles que :
+     <br>
+      <ul style="padding-bottom: 0; padding-top: 0">
+       <li>
+        chaîne de charactères
+        <var>
+         entityType
+        </var>
+        le type de l'entité parmi :
+        <const>
+         EXPLORER
+        </const>
+        |
+        <const>
+         WANDERER
+        </const>
+        <span>
+         |
+         <const>
+          EFFECT_PLAN
+         </const>
+         |
+         <const>
+          EFFECT_LIGHT
+         </const>
+        </span>
+       </li>
+       <li>
+        Entier
+        <var>
+         id
+        </var>
+        l'identifiant unique d'une entité,
+        <const>
+         -1
+        </const>
+        si c'est un effet
+        <br/>
+       </li>
+       <li>
+        Deux Entiers
+        <var>
+         x
+        </var>
+        &amp;
+        <var>
+         y
+        </var>
+        la position de l'entité.
+        <span>
+         Pour un effet, son origine.
+        </span>
+       </li>
+       <li>
+        Integer
+        <var>
+         param0
+        </var>
+        <ul class="ul2" style="padding-bottom: 0; padding-top: 0">
+         <li>
+          Explorateur : santé mentale
+         </li>
+         <li>
+          Minion en cours d'invocation : temps avant d'être invoqué
+         </li>
+         <li>
+          Wanderer : temps avant d'être rappelé
+         </li>
+         <li>
+          Effet : temps avant de disparaitre
+         </li>
+        </ul>
+       </li>
+       <li>
+        Entier
+        <var>
+         param1
+        </var>
+        :
+        <ul class="ul2" style="padding-bottom: 0; padding-top: 0">
+         <li>
+          Explorateur : la quantité de plans possible à élaborer
+         </li>
+         <li>
+          Minion : l'état actuel du minion -&gt;
+          <const>
+           SPAWN = 0
+          </const>
+          ,
+          <const>
+           WANDERING = 1
+          </const>
+         </li>
+         <li>
+          Effet : L'
+          <var>
+           id
+          </var>
+          de l'explorateur ayant lancé l'effet
+         </li>
+        </ul>
+       </li>
+       <li>
+        Entier
+        <var>
+         param2
+        </var>
+        :
+        <ul class="ul2" style="padding-bottom: 0; padding-top: 0">
+         <li>
+          Explorateur : la quantité de torches encore en stock
+         </li>
+         <li>
+          Minion :
+          <var>
+           id
+          </var>
+          de l'explorateur ciblé par ce minion.
+          <const>
+           -1
+          </const>
+          s'il n'a pas de cible (ça n'arrive qu'au premier tour de spawn des wanderers)
+         </li>
+        </ul>
+       </li>
+      </ul>
+      <p>
+       Note: l'explorateur que tu contrôles est
+       <b>
+        la première
+       </b>
+       entité donnée. L'
+       <var>
+        id
+       </var>
+       n'est pas nécessairement 0.
+      </p>
+     </br>
+    </br>
+   </div>
+  </div>
+  <!-- Protocol block -->
+  <div class="blk">
+   <div class="title">
+    Sortie pour un tour de jeu
+   </div>
+   <div class="text">
+    <span class="statement-lineno">
+     Une ligne
+    </span>
+    : l'action de ton explorateur parmis :
+    <ul style="padding-bottom: 0; padding-top: 0">
+     <li>
+      <action>
+       WAIT
+      </action>
+     </li>
+     <li>
+      <action>
+       MOVE x y
+      </action>
+     </li>
+     <li>
+      <action>
+       PLAN
+      </action>
+     </li>
+     <li>
+      <action>
+       LIGHT
+      </action>
+     </li>
+    </ul>
+    <p>
+     Tu peux aussi afficher un message en ajoutant quelques caractères après ton action :
+     <action>
+      WAIT Au niveau... du chou rouge
+     </action>
+    </p>
+   </div>
+  </div>
+  <!-- Protocol block -->
+  <div class="blk">
+   <div class="title">
+    Contraintes
+   </div>
+   <div class="text">
+    <const>
+     10
+    </const>
+    ≤
+    <var>
+     width
+    </var>
+    ≤
+    <const>
+     24
+    </const>
+    <br>
+     <const>
+      10
+     </const>
+     ≤
+     <var>
+      height
+     </var>
+     ≤
+     <const>
+      20
+     </const>
+     <br>
+      <const>
+       0
+      </const>
+      ≤
+      <var>
+       spawns
+      </var>
+      ≤
+      <const>
+       8
+      </const>
+      <br>
+       <br>
+        Temps de réponse du premier tour ≤ 1000ms
+        <br>
+         Temps de réponse par tour ≤ 50ms
+        </br>
+       </br>
+      </br>
+     </br>
+    </br>
+   </div>
+  </div>
+ </div>
+</div>
