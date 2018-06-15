@@ -219,7 +219,7 @@ public abstract class Minion extends Unit {
         .append(pos.y).append(" ")
         .append(getCountdown()).append(" ")
         .append(state.getId()).append(" ") // param1
-        .append(target != null ? target.getId() : -1).append(" ") // param2
+        .append(target != null && !target.isDead() ? target.getId() : -1).append(" ") // param2
         ;
     
     return output.toString().trim();
