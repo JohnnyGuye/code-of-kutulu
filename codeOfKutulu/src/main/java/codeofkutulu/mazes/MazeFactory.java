@@ -1,8 +1,6 @@
 package codeofkutulu.mazes;
 
 public class MazeFactory {
-
-	private static final Maze BigPacMan = new BigPacMan();	// Too huge it seems, buffer capacity exceeded
 	private static final Maze Hypersonic = new Hypersonic();
 	private static final Maze OriginOfSymmetry = new OriginOfSymmetry();
 	private static final Maze PacMan = new PacMan();
