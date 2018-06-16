@@ -1,6 +1,9 @@
 import sys
 import math
 
+# Code created during the live on twitch around 19pm on June
+# it was top wood 2 before nerfs, and now top wood 1
+
 # thank you jmpeg for this print err function <3
 def log(*args): print(*args, file=sys.stderr, flush=True)
 #               UP     RIGHT  DOWN    LEFT
@@ -78,6 +81,6 @@ while True:
     # if no minion on the map, just move to the nearest player
     # if there is a minion next to you, move aside
     # if you have lights, you aren't using one, minions are not too close and explorer aren't too far
-        -> light up
+    #    -> light up
     # if a minion is close move away
     # otherwise go to the nearest player
