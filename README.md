@@ -10,6 +10,7 @@
 - PLAN and LIGHT are created by the explorer but they stay after the explorer's death until they fade out.
 - Minions pick their new target AFTER explorers moves.
 - The prefered direction URDL is offseted by 1 more each turn. Meaning turn a minion will preferer Up instead of Right at turn 0 but he preferers Right instead of Up at turn 1 (RDLU), and so on.
+- Yells works once per player, per player (meaning each explorer can yell each other explorer)
 
 ## Known bugs
 
