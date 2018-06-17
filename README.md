@@ -3,6 +3,7 @@
 ## Statement mistakes
 - Shelters start with 10 energy . [..] Shelters get refilled to 10 every 50 turns.
   => Shelters starts with 0 energy. [...] Shelters get refilled to 10 every multiple of 50 turns, except turn 0.
+- Slasher goes in RUSH mode at the end of SPAWN no matter what, instead of what is stated in the statement (RUSH if target or WANDER if not)
 
 ## Statement imprecision
 - If a shelter is supposed to heal more than its energy for a turn (1 energy but two explorers for instance) everyone is healed and the shelter's energy is set to 0.
