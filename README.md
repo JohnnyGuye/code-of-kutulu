@@ -15,7 +15,6 @@
 ## Known bugs
 
 - PLAN still healing after death of a player (doesn't affect the score)
-- PLAN & LIGHT ends one turn faster than expected
 - If you stay on top of a slasher when he gots no previous target, he will be stunned (you are counted as 4 players alone)
 
 # Other ressources
