@@ -35,7 +35,7 @@ public class Player {
     while (true) {
       int N = scanner.nextInt();
       for (int p = 0; p < N; p++) {
-        int type = scanner.nextInt();
+        String type = scanner.next();
         int index = scanner.nextInt();
         int x = scanner.nextInt();
         int y = scanner.nextInt();
