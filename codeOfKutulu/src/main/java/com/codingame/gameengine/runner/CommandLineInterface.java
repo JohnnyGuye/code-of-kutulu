@@ -45,11 +45,10 @@ public class CommandLineInterface {
 				System.exit(0);
 			}
 
-	        MultiplayerGameRunner runner = new MultiplayerGameRunner();
+			MultiplayerGameRunner runner = new MultiplayerGameRunner();
 
 			Field getGameResult = GameRunner.class.getDeclaredField("gameResult");
 			getGameResult.setAccessible(true);
-            setupLeague
 			GameResult result = (GameResult) getGameResult.get(runner);
 
 			if (cmd.hasOption("d")) {
