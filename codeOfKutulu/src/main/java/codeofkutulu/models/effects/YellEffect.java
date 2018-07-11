@@ -29,6 +29,12 @@ public class YellEffect extends TimerEffect {
   }
 
   @Override
+  public String toOutput() {
+    if (receiver.isDead()) return null;
+    return super.toOutput();
+  }
+
+  @Override
   protected String getParam2() {
     return ""+receiver.getId();
   }

@@ -65,7 +65,7 @@ public class MinionSlasherTest {
   @Test
   public void cooldown_is_stun_when_PREPARING_RUSH() throws Exception {
     MinionSlasher slasher = new MinionSlasher(1, player);
-    slasher.state = MinionState.PREPARING_RUSH;
+    slasher.state = MinionState.STALKING;
     slasher.stunCountdown = 17;
     
     assertThat(slasher.getCountdown(), is(17));

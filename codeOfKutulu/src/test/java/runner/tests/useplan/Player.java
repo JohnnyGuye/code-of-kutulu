@@ -21,7 +21,7 @@ public class Player {
   private final static String LEFT = "LEFT";
   private final static String RIGHT = "RIGHT";
   private final static String PLAN = "PLAN";
-  
+
   public static void main(String[] args) {
     Scanner scanner = new Scanner(System.in);
     Random random = new Random(0);
@@ -35,14 +35,14 @@ public class Player {
     while (true) {
       int N = scanner.nextInt();
       for (int p = 0; p < N; p++) {
-        int type = scanner.nextInt();
+        String type = scanner.next();
         int index = scanner.nextInt();
         int x = scanner.nextInt();
         int y = scanner.nextInt();
         int sanity = scanner.nextInt();
         int remainingPlans = scanner.nextInt();
-        int remainingLights = scanner.nextInt();        
-        
+        int remainingLights = scanner.nextInt();
+
         if (p == 0) {
           possibleOutputs.clear();
           possibleOutputs.add(WAIT);

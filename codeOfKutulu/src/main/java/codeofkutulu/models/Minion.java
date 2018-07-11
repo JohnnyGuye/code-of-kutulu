@@ -45,7 +45,7 @@ public abstract class Minion extends Unit {
     case SPAWNING:
       spawnCountdown--;
       if (spawnCountdown == 0) {
-        state = MinionState.SERVING_MY_MASTER;
+        state = MinionState.WANDERING;
         lifeTimeCountdown = Constants.WANDERER_LIFE_TIME;
       }
       break;
@@ -87,7 +87,7 @@ public abstract class Minion extends Unit {
 
   /**
    * chase closest player If 2 or more players are at same distance, the minion
-   * will keep it's target
+   * will keep its target
    */
   protected void chaseClosestPlayers() {
     MINION_PATH_FINDER.withOffset(Referee.turn);
@@ -178,7 +178,7 @@ public abstract class Minion extends Unit {
   }
 
   public boolean isPreparingRush() {
-    return state == MinionState.PREPARING_RUSH;
+    return state == MinionState.STALKING;
   }
 
   protected void recallSuccess() {

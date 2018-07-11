@@ -9,7 +9,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import com.codingame.game.PlayerAction.Action;
+
 import codeofkutulu.Constants;
+import codeofkutulu.Rule;
 import codeofkutulu.mazes.Hypersonic;
 import codeofkutulu.models.PlayerUnit;
 import codeofkutulu.models.Playfield;
@@ -101,5 +104,24 @@ public class PlayerActionTest {
     PlayerAction action = new PlayerAction(player, "MOVE 5 11");
     
     assertThat(action.action, is(PlayerAction.Action.DOWN));
+  }
+  
+  @Test
+  @Parameters({
+    "WAIT | WAIT |",
+    "PLAN plan| WAIT |plan",
+    "LIGHT light| WAIT | light",
+    "YELL yell | WAIT | yell",
+  })
+  public void effectWhenNoEffectShouldBeAWait(String command, Action expected, String message) throws Exception {
+    Rule.reset();
+    League league = League.get(1);
+    league.activateRules();
+
+    PlayerAction action = new PlayerAction(player, command);
+    
+    assertThat(action.action, is(expected));
+    assertThat(action.message, is(message));
+    
   }
 }

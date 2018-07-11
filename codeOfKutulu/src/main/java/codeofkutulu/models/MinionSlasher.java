@@ -2,6 +2,7 @@ package codeofkutulu.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.codingame.game.Referee;
 
@@ -34,7 +35,7 @@ public class MinionSlasher extends Minion {
   @Override
   public int getCountdown() {
     switch (state) {
-    case PREPARING_RUSH:
+    case STALKING:
       return stunCountdown;
     case STUNNED:
       return stunCountdown;
@@ -58,7 +59,7 @@ public class MinionSlasher extends Minion {
         state = MinionState.RUSH;
       }
       break;
-    case PREPARING_RUSH:
+    case STALKING:
       stunCountdown--;
       acquireTarget();
       if (stunCountdown <= 0) {
@@ -73,17 +74,17 @@ public class MinionSlasher extends Minion {
     case STUNNED:
       stunCountdown--;
       if (stunCountdown == 0) {
-        this.state = MinionState.SERVING_MY_MASTER;
+        this.state = MinionState.WANDERING;
       }
       break;
     case RECALLING_FAILURE:
     case RECALLING_SUCCESS:
       break;
-    case SERVING_MY_MASTER:
+    case WANDERING:
     default:
       if (this.acquireTarget()) {
         stunCountdown = Constants.SLASHER_RUSH_PREP;
-        this.state = MinionState.PREPARING_RUSH;
+        this.state = MinionState.STALKING;
       } else {
         move();
       }
@@ -95,6 +96,10 @@ public class MinionSlasher extends Minion {
    * acquired he goes into rush mode
    */
   boolean acquireTarget() {
+    if (target != null && target.isDead()) {
+      target = null;
+      targetPositionBeforePreparation = null;
+    }
     PlayerUnit previousTarget = target;
     if (target != null && isPlayerInLoS(target)) {
       target = previousTarget;
@@ -151,6 +156,7 @@ public class MinionSlasher extends Minion {
         break;
       }
     }
+    targets = targets.stream().distinct().collect(Collectors.toList());
     return targets;
   }
 

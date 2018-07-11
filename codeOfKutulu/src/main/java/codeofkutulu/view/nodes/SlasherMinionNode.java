@@ -6,15 +6,12 @@ import java.util.Map;
 
 import com.codingame.gameengine.module.entities.Curve;
 import com.codingame.gameengine.module.entities.GraphicEntityModule;
-import com.codingame.gameengine.module.entities.SpriteSheetLoader;
 import com.codingame.gameengine.module.entities.Text;
 
 import codeofkutulu.Constants;
 import codeofkutulu.models.Minion;
 import codeofkutulu.models.MinionState;
 import codeofkutulu.tooltipModule.TooltipModule;
-import codeofkutulu.view.AnimationFactory;
-import codeofkutulu.view.AnimationWithMask;
 
 public class SlasherMinionNode extends MinionNode {
 
@@ -54,7 +51,7 @@ public class SlasherMinionNode extends MinionNode {
     switch (minion.getState()) {
     case SPAWNING:
       break;
-    case PREPARING_RUSH:
+    case STALKING:
       this.statusMark.setText("!");
       break;
     case RUSH:

@@ -18,7 +18,7 @@ public abstract class TimerEffect extends Effect {
 
   @Override
   public void doEffect() {
-    tick--;
     super.doEffect();
+    tick--;
   }
 }

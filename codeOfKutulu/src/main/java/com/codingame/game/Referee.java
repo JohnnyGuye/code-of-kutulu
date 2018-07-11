@@ -65,7 +65,7 @@ public class Referee extends AbstractReferee {
     setupLeague(gameManager.getLeagueLevel());
     gameManager.setFrameDuration(500);
 
-    
+
     pickMaze(params);
 
     AnimationFactory.getInstance().init(graphicEntityModule);
@@ -206,21 +206,14 @@ public class Referee extends AbstractReferee {
     }
   }
 
-  private void killPlayer(Player player, String message) {
-    livingPlayers.remove(player.getPlayerUnit());
-    player.getPlayerUnit().kill();
+  void killPlayer(Player player, String message) {
+    removeThePlayer(player.getPlayerUnit());
     player.setScore(-1);
     player.kill(message);
   }
 
   private void sendInput(Player player) {
-    int totalEntities = 0  
-        + gameManager.getActivePlayers().size()
-        + minions.size()
-        + effects.size()
-        ;
-    
-    player.sendInputLine(String.valueOf(totalEntities));
+    List<String> toSend = new ArrayList<String>();
     int thisPlayerIndex = player.getIndex();
 
     // always send players with this player at first
@@ -229,21 +222,29 @@ public class Referee extends AbstractReferee {
       if (!p.isActive()) {
         continue;
       }
-      player.sendInputLine(p.getPlayerUnit().toOutput());
+      toSend.add(p.getPlayerUnit().toOutput());
     }
-    
+
     for (Minion minion : minions) {
-      player.sendInputLine(minion.toOutput());
+      toSend.add(minion.toOutput());
     }
-    
+
     for (Effect effect : effects) {
-      player.sendInputLine(effect.toOutput());
+      String output = effect.toOutput();
+      if (output != null) {
+        toSend.add(output);
+      }
     }
-    
+
+    player.sendInputLine(String.valueOf(toSend.size()));
+    for (String send : toSend) {
+      player.sendInputLine(send);
+    }
+
     player.execute();
   }
 
-  private void updateGame() {
+  void updateGame() {
     resetEffects();
 
     spawnMinions();
@@ -253,11 +254,11 @@ public class Referee extends AbstractReferee {
 
     updateMinions();
     recallMinions();
-    
+
     spreadMadness();
 
     removeDeadPlayers();
-    
+
     if (Rule.HAS_SHELTER) {
       spawnShelters();
     }
@@ -270,7 +271,7 @@ public class Referee extends AbstractReferee {
   void spawnShelters() {
     if (turn != 0 && turn % Constants.SHELTER_SPAWN_INTERVAL == 0) {
       effects.removeIf(effect -> effect instanceof ShelterEffect);
-      
+
       for (Cell cell : playfield.getShelterCells()) {
         ShelterEffect shelterEffect = new ShelterEffect(cell);
         effects.add(shelterEffect);
@@ -297,7 +298,7 @@ public class Referee extends AbstractReferee {
   // Spread more if not near a player
   private void spreadMadness() {
     updateIsolation();
-    
+
     if (isKutuluComing()) {
       PlayerUnit pu = gameManager.getActivePlayers().get(0).getPlayerUnit();
       pu.madden(Constants.SPREAD_KUTULU_MADNESS_PER_TURN_AMOUNT);
@@ -378,8 +379,8 @@ public class Referee extends AbstractReferee {
 
   private void resetStuckedPlayerActions() {
     for (Player player : gameManager.getActivePlayers()) {
-      if (player.getPlayerUnit().isStuck() 
-          && player.getPlayerUnit().wantedAction != PlayerAction.WAIT) {
+      if (player.getPlayerUnit().isStuck()
+              && player.getPlayerUnit().wantedAction != PlayerAction.WAIT) {
         player.getPlayerUnit().wantedAction = PlayerAction.WAIT;
         gameManager.addToGameSummary(player.getNicknameToken() + STUCK_MESSAGE);
       }
@@ -390,16 +391,25 @@ public class Referee extends AbstractReferee {
     return effects.stream().filter(effect -> effect.getCaster() == player).count() >= 1;
   }
 
-  void removeDeadPlayers() {
+  private void removeDeadPlayers() {
     for (Player player : gameManager.getPlayers()) {
-      if (!player.isActive() || player.getPlayerUnit().isDead()) {
-        if (livingPlayers.contains(player.getPlayerUnit())) {
-          livingPlayers.remove(player.getPlayerUnit());
-          player.getPlayerUnit().kill();
-          player.setScore(turn);
-          player.kill(String.format("$%d %s", player.getIndex(), KILL_BY_MADNESS_MSG));
-        }
+      if (player.isActive() && player.getPlayerUnit().isDead()) {
+        removeThePlayer(player.getPlayerUnit());
+        player.setScore(turn);
+        player.kill(String.format("$%d %s", player.getIndex(), KILL_BY_MADNESS_MSG));
       }
+    }
+  }
+
+  void removeThePlayer(PlayerUnit player) {
+    if (livingPlayers.contains(player)) {
+      effects.removeIf(effect -> {
+        return effect.getCaster() == player
+                && effect.getType() != Constants.EFFECT_YELL_TYPE;
+      });
+
+      livingPlayers.remove(player);
+      player.kill();
     }
   }
 
@@ -468,13 +478,13 @@ public class Referee extends AbstractReferee {
   // === Utilitary functions ===
   public static List<PlayerUnit> playersOnCell(Cell cell) {
     return Referee.livingPlayers.stream().filter(player -> player.isOnCell(cell))
-        .collect(Collectors.toList());
+            .collect(Collectors.toList());
   }
-  
+
   @Override
   public void onEnd() {
-      endScreenModule.setScores(gameManager.getPlayers().stream().mapToInt(p -> p.getScore()).toArray());
-      endScreenModule.setSanities(gameManager.getPlayers().stream().mapToInt(p -> p.getPlayerUnit().getSanity()).toArray());
+    endScreenModule.setScores(gameManager.getPlayers().stream().mapToInt(p -> p.getScore()).toArray());
+    endScreenModule.setSanities(gameManager.getPlayers().stream().mapToInt(p -> p.getPlayerUnit().getSanity()).toArray());
   }
 
   public static boolean isKutuluComing() {

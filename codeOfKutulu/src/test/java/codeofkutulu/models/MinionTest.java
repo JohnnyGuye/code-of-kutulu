@@ -121,7 +121,7 @@ public class MinionTest {
   
   @Test
   public void whenWanderingIsFnished_beRecalled() throws Exception {
-    minion.state = MinionState.SERVING_MY_MASTER;
+    minion.state = MinionState.WANDERING;
     minion.lifeTimeCountdown = 1;
     minion.update();
     

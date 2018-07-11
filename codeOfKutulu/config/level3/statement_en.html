@@ -173,7 +173,7 @@
     </const>
     times in the game. The plan is an effect with a duration of
     <const>
-     5
+     4
     </const>
     turns and a range of
     <const>
@@ -200,7 +200,7 @@
     </const>
     to the distance of each cell used by wanderers to calculate the closest explorer. It has a duration of
     <const>
-     3
+     2
     </const>
     turns, a range of
     <const>
@@ -230,11 +230,11 @@
     </const>
     turns. They won't be able to do any action during this period of time.
     <br/>
-    But remember it only works
+    But remember: each player can yell each other player only
     <const>
      1
     </const>
-    time per player. You know,
+    time per game. You know,
     <i>
      fool me once, shame on you; fool me twice, shame on me
     </i>
@@ -247,10 +247,7 @@
     </const>
     sanity each turn (you will still suffer from the passive sanity loss for being lonely).
     <br/>
-    Shelters start with
-    <const>
-     10
-    </const>
+    Shelters start with no
     <i>
      energy
     </i>
@@ -258,11 +255,7 @@
     <const>
      1
     </const>
-    energy each time it reassures an explorer, until it has no more energy. When it runs out of energy, it can no longer restore confidence to anyone before being fully refilled. Shelters that are at
-    <const>
-     0
-    </const>
-    energy get refilled to
+    energy each time it reassures an explorer, until it has no more energy. When it runs out of energy, it can no longer restore confidence to anyone before being fully refilled. Shelters get refilled to
     <const>
      10
     </const>
@@ -271,6 +264,11 @@
      50
     </const>
     turns.
+                        In case of two or more players being on an active shelter, everyone gets healed - even if that would result in a negative energy of the shelter. The energy will be set to
+    <const>
+     0
+    </const>
+    then.
    </p>
    <p>
     <b>
@@ -326,6 +324,12 @@
    </span>
   </h2>
   <div class="statement-content">
+   <p>
+    You can access the Referee on a public
+    <a href="https://github.com/JohnnyGuye/code-of-kutulu">
+     github
+    </a>
+   </p>
    <h2>
     Minions
    </h2>
@@ -366,7 +370,7 @@
     <br/>
     In case of a tie in distance at step 2, the wanderers keeps the last target. If it can't be resolved this way, they choose a target randomly.
     <br/>
-    There may be two ways at the same distance from their target. In this case, the wanderer will move in priority in this order : Up, Right, Down, Left.
+    There may be two ways at the same distance from their target. In this case, the wanderer will initially move in priority in this order: Up, Right, Down, Left. Every turn the priority shifts by one, becoming Right, Down, Left Up in turn 1. After 4 turns that cycle starts again.
     <br/>
     If they can't spook a player within
     <const>
@@ -388,7 +392,7 @@
       <const>
        6
       </const>
-      turns.
+      turns. The slasher will always RUSH after spawning.
      </li>
      <li>
       WANDERING: Behave like a wanderer until they are in line of sight of a player (meaning a player is in one of the four directions with no wall in between). This triggers the STALKING mode.
@@ -443,6 +447,12 @@
      <br/>
      If it can't be resolved, the slasher gets confused and is STUNNED.
     </p>
+    <p>
+     If you prefer a graph here is a link :
+     <a href="https://github.com/JohnnyGuye/code-of-kutulu/blob/master/ressources/slasher_state_machine_en.png">
+      slasher behaviour
+     </a>
+    </p>
    </div>
    <br/>
    <br/>
@@ -471,7 +481,7 @@
      Effects are applied.
     </li>
     <li>
-     Minions move.
+     Minions move. They know the updated player positions when chosing a target.
     </li>
     <li>
      Minions spook players that share a cell with them.
@@ -600,25 +610,41 @@
          <var>
           sanityLossLonely
          </var>
-         : amount of sanity lost when isolated
+         : amount of sanity lost when isolated (
+         <const>
+          3-6
+         </const>
+         )
         </li>
         <li>
          <var>
           sanityLossGroup
          </var>
-         : amount of sanity lost when in group
+         : amount of sanity lost when in group (
+         <const>
+          1-3
+         </const>
+         )
         </li>
         <li>
          <var>
           wandererSpawnTime
          </var>
-         : spawn time of wanderers
+         : spawn time of wanderers (
+         <const>
+          3-6
+         </const>
+         )
         </li>
         <li>
          <var>
           wandererLifeTime
          </var>
-         : time before the wanderer is obliterated by Kutulu
+         : time before the wanderer is obliterated by Kutulu (
+         <const>
+          30-40
+         </const>
+         )
         </li>
        </ul>
       </br>
@@ -753,7 +779,7 @@
          <li>
           Minion: Current state amongst those -&gt;
           <const>
-           SPAWN = 0
+           SPAWNING = 0
           </const>
           ,
           <const>
@@ -762,15 +788,15 @@
           <span>
            ,
            <const>
-            RUSH PREP = 2
+            STALKING = 2
            </const>
            ,
            <const>
-            RUSH = 3
+            RUSHING = 3
            </const>
            ,
            <const>
-            STUN = 4
+            STUNNED = 4
            </const>
           </span>
          </li>
@@ -805,7 +831,7 @@
           <var>
            id
           </var>
-          of the explorer targeted by this minion. -1 if no target (occurs only on spawn)
+          of the explorer targeted by this minion. -1 if no target
          </li>
          <li>
           Shelter:
@@ -841,7 +867,7 @@
        <var>
         id
        </var>
-       may not be 0.
+       may not necessarily be 0.
       </p>
      </br>
     </br>

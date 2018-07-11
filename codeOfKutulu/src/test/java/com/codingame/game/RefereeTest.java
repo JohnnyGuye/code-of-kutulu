@@ -9,8 +9,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import codeofkutulu.mazes.ShelterInPeril;
+import codeofkutulu.models.PlayerUnit;
 import codeofkutulu.models.Playfield;
+import codeofkutulu.models.effects.PlanEffect;
 import codeofkutulu.models.effects.ShelterEffect;
+import codeofkutulu.models.effects.YellEffect;
 
 public class RefereeTest {
 
@@ -26,6 +29,9 @@ public class RefereeTest {
     Referee.livingPlayers.clear();
     Referee.maze = new ShelterInPeril();
     Referee.playfield = new Playfield(Referee.maze);
+    
+    Referee.effects.clear();
+    Referee.livingPlayers.clear();
   }
   
   
@@ -61,5 +67,38 @@ public class RefereeTest {
     assertThat(Referee.effects, not(hasItem(oldShelter)));
     assertThat(Referee.effects.size(), is(4));
   }
-  
+
+  @Test
+  public void deadPlayersPlansAreRemoved() throws Exception {
+    Referee referee = new Referee();
+    Player player = new Player();
+    PlayerUnit p1 = player.createUnit();;
+    p1.move(1, 1);
+    p1.sanity = 200;
+    Referee.livingPlayers.add(p1);
+    
+    PlanEffect effect = new PlanEffect(p1);
+    Referee.effects.add(effect);
+    
+    referee.removeThePlayer(p1);
+    
+    assertThat(Referee.effects.size(), is(0));
+  }
+
+  @Test
+  public void deadPlayersYellsAre_NOT_Removed() throws Exception {
+    Referee referee = new Referee();
+    Player player = new Player();
+    PlayerUnit p1 = player.createUnit();;
+    p1.move(1, 1);
+    p1.sanity = 200;
+    Referee.livingPlayers.add(p1);
+    
+    YellEffect effect = new YellEffect(p1, null);
+    Referee.effects.add(effect);
+    
+    referee.removeThePlayer(p1);
+    
+    assertThat(Referee.effects.size(), is(1));
+  }
 }

@@ -50,7 +50,7 @@ public class Constants {
   public static final int PLAYER_MAX_PLAN_EFFECT = 2;
   public static final int PLAYER_MAX_LIGHT_EFFECT = 3;
 
-  public static final int EFFECT_PLAN_MAX_DURATION = 5;
+  public static final int EFFECT_PLAN_MAX_DURATION = 4;
   public static final int EFFECT_PLAN_HEAL_RADIUS = 2;
   public static final int EFFECT_PLAN_HEAL = 3;
 
@@ -58,7 +58,7 @@ public class Constants {
   public static final int EFFECT_MAX_SHELTER_ENERGY = 10;
   public static final int EFFECT_SHELTER_HEAL = 5;
 
-  public static final int EFFECT_REPULSE_MAX_DURATION = 3;
+  public static final int EFFECT_REPULSE_MAX_DURATION = 2;
   public static final int EFFECT_REPULSE_RADIUS = 5;
   public static final int EFFECT_REPULSE_WEIGHT = 4;
 

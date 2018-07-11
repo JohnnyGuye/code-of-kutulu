@@ -160,7 +160,7 @@ export class EndScreenModule {
     rank.position.y = 56
     avatarContainer.addChild(rank)
 
-    var rankLetter = this.generateText(finisher.rank === 1 ? 'ST' : 'ND'.toString(), 34, 'left', finisher.player.color, true)
+    var rankLetter = this.generateText(['ST', 'ND', 'RD', 'TH'][finisher.rank - 1].toString(), 34, 'left', finisher.player.color, true)
     rankLetter.position.x = 184
     rankLetter.position.y = 32
     avatarContainer.addChild(rankLetter)
@@ -220,14 +220,9 @@ export class EndScreenModule {
 
     this.finishers = []
     var finishers = new PIXI.Container()
-    var curRank = 1
     var elem
     for (i = 0; i < podium.length; ++i) {
-      if (i > 0 && podium[i - 1].score !== podium[i].score) {
-        curRank++
-      }
-
-      podium[i].rank = curRank
+      podium[i].rank = podium.filter(p => p.score > podium[i].score).length + 1
       elem = this.createFinisher(podium[i])
       finishers.addChild(elem)
       this.finishers.push(elem)

@@ -71,11 +71,11 @@ public class PlayerAction {
     this.action = PlayerAction.Action.valueOf(output);
     
     if ("PLAN".equals(this.action.name()) && !Rule.HAS_PLAN) {
-        throw new Exception();
+      this.action = Action.WAIT;
     } else if ("LIGHT".equals(this.action.name()) && !Rule.HAS_LIGHT) {
-        throw new Exception();
+      this.action = Action.WAIT;
     } else if ("YELL".equals(this.action.name()) && !Rule.HAS_YELL) {
-        throw new Exception();
+      this.action = Action.WAIT;
     }
     
     this.message = message != null ? message : "";

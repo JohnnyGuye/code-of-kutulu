@@ -12,4 +12,16 @@ public class Rule {
  
   public static boolean HAS_ISOLATED_FEAR = false;
   
+  public static void reset() {
+    HAS_WANDERER = false;
+    HAS_SLASHER = false;
+
+    HAS_SHELTER = false;
+    
+    HAS_PLAN = false;
+    HAS_LIGHT = false;
+    HAS_YELL = false;
+   
+    HAS_ISOLATED_FEAR = false;
+  }
 }

@@ -1,7 +1,5 @@
 package codeofkutulu.models;
 
-import com.codingame.game.Referee;
-
 import codeofkutulu.Constants;
 import codeofkutulu.models.events.SpawnEvent;
 
@@ -29,7 +27,7 @@ public class MinionWanderer extends Minion {
     case SPAWNING:
       spawnCountdown--;
       if (spawnCountdown == 0) {
-        state = MinionState.SERVING_MY_MASTER;
+        state = MinionState.WANDERING;
         lifeTimeCountdown = Constants.WANDERER_LIFE_TIME;
       } else {
         getCurrentCell().emitEvent(new SpawnEvent());
